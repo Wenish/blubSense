@@ -47,5 +47,12 @@ namespace Assets.Scripts.Network
             Debug.Log($"Joined {roomName} room successfully.");
         }
 
+        void OnApplicationQuit()
+        {
+            // Ensure the connection with server is closed immediatelly
+            room.Leave();
+            client.Close();
+        }
+
     }
 }
