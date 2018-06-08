@@ -1,0 +1,32 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using Unity.Entities;
+
+namespace BlubSense.Systems
+{
+    public class SystemPlayerMovement : ComponentSystem
+    {
+        private struct Group
+        {
+            public Transform Transform;
+            public PlayerInput PlayerInput;
+            public Speed Speed;
+        }
+
+        protected override void OnUpdate()
+        {
+            foreach(var entity in GetEntities<Group>())
+            {
+                var posistion = entity.Transform.position;
+                var rotation = entity.Transform.rotation;
+
+                posistion.x += entity.Speed.Value * entity.PlayerInput.Horizontal * Time.deltaTime;
+                rotation.w = math.clamp(entity.PlayerInput.Horizontal, -0.5f, 0.5f);
+
+                entity.Transform.position = posistion;
+                entity.Transform.rotation = rotation;
+            }
+        }
+    } 
+}
