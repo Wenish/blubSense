@@ -19,7 +19,7 @@ namespace Assets.Scripts.Systems
             {
                 entity.PlayerInput.Horizontal = Input.GetAxis("Horizontal");
                 entity.PlayerInput.Vertical = Input.GetAxis("Vertical");
-            }
+            }  
         }
     } 
 }

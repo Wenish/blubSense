@@ -9,5 +9,6 @@ namespace Assets.Scripts.Components
 {
     public class NetworkEntity : MonoBehaviour
     {
+        public string Id;
     }
 }
