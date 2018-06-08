@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Entities;
-using BlubSense.Components;
 using System;
+using Assets.Scripts.Components;
 
-namespace BlubSense.Systems
+namespace Assets.Scripts.Systems
 {
     public class SystemPlayerMovement : ComponentSystem
     {
@@ -24,6 +24,7 @@ namespace BlubSense.Systems
                 var rotation = entity.Transform.rotation;
 
                 posistion.x += entity.Speed.Value * entity.PlayerInput.Horizontal * Time.deltaTime;
+                posistion.y += entity.Speed.Value * entity.PlayerInput.Vertical * Time.deltaTime;
                 rotation.w = Mathf.Clamp(entity.PlayerInput.Horizontal, -0.5f, 0.5f);
 
                 entity.Transform.position = posistion;

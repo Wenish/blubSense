@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace BlubSense.Components
+namespace Assets.Scripts.Components
 {
     public class Speed : MonoBehaviour
     {

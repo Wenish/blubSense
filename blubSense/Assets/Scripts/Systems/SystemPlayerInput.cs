@@ -3,19 +3,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Entities;
-using BlubSense.Components;
+using Assets.Scripts.Components;
 
-public class SystemPlayerInput : ComponentSystem
+namespace Assets.Scripts.Systems
 {
-    private struct Group
+    public class SystemPlayerInput : ComponentSystem
     {
-        public PlayerInput PlayerInput;
-    }
-    protected override void OnUpdate()
-    {
-        foreach(var entity in GetEntities<Group>())
+        private struct Group
         {
-            entity.PlayerInput.Horizontal = Input.GetAxis("Horizontal");
+            public PlayerInput PlayerInput;
         }
-    }
+        protected override void OnUpdate()
+        {
+            foreach (var entity in GetEntities<Group>())
+            {
+                entity.PlayerInput.Horizontal = Input.GetAxis("Horizontal");
+                entity.PlayerInput.Vertical = Input.GetAxis("Vertical");
+            }
+        }
+    } 
 }
