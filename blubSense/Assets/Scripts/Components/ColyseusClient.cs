@@ -10,5 +10,4 @@ namespace Assets.Scripts.Components
         public string port = "8080";
         public string roomName = "match";
     }
-
 }
