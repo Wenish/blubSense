@@ -32,6 +32,8 @@ namespace Assets.Scripts.Network
                 Debug.Log(e);
             };
 
+            room.Listen("scene/:id", OnSceneChange);
+
             //room.OnMessage += OnData;
 
             while (true)
@@ -40,6 +42,11 @@ namespace Assets.Scripts.Network
 
                 yield return 0;
             }
+        }
+
+        private void OnSceneChange(DataChange obj)
+        {
+            Debug.Log(obj);
         }
 
         void OnRoomJoined(object sender, EventArgs e)
