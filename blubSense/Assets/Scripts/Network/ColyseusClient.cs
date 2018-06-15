@@ -59,8 +59,10 @@ namespace Assets.Scripts.Network
             Debug.Log(operation);
             if (operation == "add")
             {
+                var playerId = jsonObj["value"]["id"].ToString();
+                Debug.Log("playerId:");
+                Debug.Log(playerId);
                 var positionX = jsonObj["value"]["position"]["x"].ToString();
-
                 Debug.Log("position x:");
                 Debug.Log(positionX);
             }
