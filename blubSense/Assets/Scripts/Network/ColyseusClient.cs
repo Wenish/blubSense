@@ -2,6 +2,8 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace Assets.Scripts.Network
 {
@@ -32,6 +34,7 @@ namespace Assets.Scripts.Network
                 Debug.Log(e);
             };
 
+            room.Listen("players/:id", OnPlayerChange);
             room.Listen("scene/:id", OnSceneChange);
 
             //room.OnMessage += OnData;
@@ -44,9 +47,31 @@ namespace Assets.Scripts.Network
             }
         }
 
+        private void OnPlayerChange(DataChange obj)
+        {
+            var jsonString = JsonConvert.SerializeObject(obj);
+            var jsonObj = JToken.Parse(jsonString);
+            Debug.Log(jsonString);
+            Debug.Log(jsonObj);
+
+            var operation = jsonObj["operation"].ToString();
+            Debug.Log("Operation:");
+            Debug.Log(operation);
+            if (operation == "add")
+            {
+                var positionX = jsonObj["value"]["position"]["x"].ToString();
+
+                Debug.Log("position x:");
+                Debug.Log(positionX);
+            }
+        }
+
         private void OnSceneChange(DataChange obj)
         {
-            Debug.Log(obj);
+            var jsonString = JsonConvert.SerializeObject(obj);
+            var jsonObj = JToken.Parse(jsonString);
+            Debug.Log(jsonString);
+            Debug.Log(jsonObj);
         }
 
         void OnRoomJoined(object sender, EventArgs e)
