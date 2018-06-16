@@ -4,6 +4,7 @@ using System.Collections;
 using UnityEngine;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using Assets.Scripts.Network.Listeners;
 
 namespace Assets.Scripts.Network
 {
@@ -24,7 +25,6 @@ namespace Assets.Scripts.Network
             client.OnClose += (object sender, EventArgs e) => Debug.Log("CONNECTION CLOSED");
 
             yield return StartCoroutine(client.Connect());
-
             room = client.Join(roomName);
             room.OnReadyToConnect += (sender, e) => StartCoroutine(room.Connect());
             room.OnJoin += OnRoomJoined;
@@ -34,7 +34,7 @@ namespace Assets.Scripts.Network
                 Debug.Log(e);
             };
 
-            room.Listen("players/:id", OnPlayerChange);
+            room.Listen("players/:id", new ListenerPlayers().OnChange);
             room.Listen("scene/:id", OnSceneChange);
 
             //room.OnMessage += OnData;
@@ -46,28 +46,6 @@ namespace Assets.Scripts.Network
                 yield return 0;
             }
         }
-
-        private void OnPlayerChange(DataChange obj)
-        {
-            var jsonString = JsonConvert.SerializeObject(obj);
-            var jsonObj = JToken.Parse(jsonString);
-            Debug.Log(jsonString);
-            Debug.Log(jsonObj);
-
-            var operation = jsonObj["operation"].ToString();
-            Debug.Log("Operation:");
-            Debug.Log(operation);
-            if (operation == "add")
-            {
-                var playerId = jsonObj["value"]["id"].ToString();
-                Debug.Log("playerId:");
-                Debug.Log(playerId);
-                var positionX = jsonObj["value"]["position"]["x"].ToString();
-                Debug.Log("position x:");
-                Debug.Log(positionX);
-            }
-        }
-
         private void OnSceneChange(DataChange obj)
         {
             var jsonString = JsonConvert.SerializeObject(obj);
