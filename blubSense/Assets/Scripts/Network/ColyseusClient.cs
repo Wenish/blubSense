@@ -34,7 +34,7 @@ namespace Assets.Scripts.Network
                 Debug.Log(e);
             };
 
-            room.Listen("players/:id", new ListenerPlayers().OnChange);
+            room.Listen("players/:id", GetComponent<ListenerPlayers>().OnChange);
             room.Listen("scene/:id", OnSceneChange);
 
             //room.OnMessage += OnData;

@@ -7,8 +7,9 @@ using UnityEngine;
 
 namespace Assets.Scripts.Network.Listeners
 {
-    public class ListenerPlayers : IRoomListener
+    public class ListenerPlayers : MonoBehaviour, IRoomListener
     {
+        public GameObject player;
         public void OnChange(DataChange obj)
         {
             var jsonString = JsonConvert.SerializeObject(obj);
@@ -19,6 +20,7 @@ namespace Assets.Scripts.Network.Listeners
             {
                 var playerId = jsonObj["value"]["id"].ToString();
                 var positionX = jsonObj["value"]["position"]["x"].ToString();
+                Instantiate(player);
 
                 Debug.Log($"Player added: {playerId}");
             }
