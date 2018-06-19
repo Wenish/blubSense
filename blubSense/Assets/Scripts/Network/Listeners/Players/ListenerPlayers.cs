@@ -18,9 +18,12 @@ namespace Assets.Scripts.Network.Listeners
             var operation = jsonObj["operation"].ToString();
             if (operation == "add")
             {
-                var playerId = jsonObj["value"]["id"].ToString();
-                var positionX = jsonObj["value"]["position"]["x"].ToString();
-                Instantiate(player);
+                string playerId = jsonObj["value"]["id"].ToString();
+                float positionX = float.Parse(jsonObj["value"]["position"]["x"].ToString());
+                float positionY = float.Parse(jsonObj["value"]["position"]["y"].ToString());
+                Vector3 spawnPosition = new Vector3(positionX, positionY);
+                Quaternion quaternion = new Quaternion();
+                var gameObject = Instantiate(player, spawnPosition, quaternion);
 
                 Debug.Log($"Player added: {playerId}");
             }
