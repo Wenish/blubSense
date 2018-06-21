@@ -12,13 +12,17 @@ namespace Assets.Scripts.Systems
         private struct Group
         {
             public PlayerInput PlayerInput;
+            public Player Player;
         }
         protected override void OnUpdate()
         {
             foreach (var entity in GetEntities<Group>())
             {
-                entity.PlayerInput.Horizontal = Input.GetAxis("Horizontal");
-                entity.PlayerInput.Vertical = Input.GetAxis("Vertical");
+                if (entity.Player.IsCurrentPlayer)
+                {
+                    entity.PlayerInput.Horizontal = Input.GetAxis("Horizontal");
+                    entity.PlayerInput.Vertical = Input.GetAxis("Vertical");
+                }
             }  
         }
     } 

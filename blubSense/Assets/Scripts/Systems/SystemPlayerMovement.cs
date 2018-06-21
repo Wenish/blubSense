@@ -24,7 +24,7 @@ namespace Assets.Scripts.Systems
                 var rotation = entity.Transform.rotation;
 
                 posistion.x += entity.Speed.Value * entity.PlayerInput.Horizontal * Time.deltaTime;
-                posistion.y += entity.Speed.Value * entity.PlayerInput.Vertical * Time.deltaTime;
+                posistion.z += entity.Speed.Value * entity.PlayerInput.Vertical * Time.deltaTime;
                 rotation.w = Mathf.Clamp(entity.PlayerInput.Horizontal, -0.5f, 0.5f);
 
                 entity.Transform.position = posistion;
