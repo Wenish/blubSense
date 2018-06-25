@@ -35,6 +35,8 @@ namespace Assets.Scripts.Network
             };
 
             room.Listen("players/:id", GetComponent<ListenerPlayers>().OnChange);
+            room.Listen("players/:id/playerInput/horizontal", GetComponent<ListenerPlayerInputHorizontal>().OnChange);
+            room.Listen("players/:id/playerInput/vertical", GetComponent<ListenerPlayerInputVertical>().OnChange);
 
             //room.OnMessage += OnData;
             while (true)
