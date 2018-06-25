@@ -35,23 +35,14 @@ namespace Assets.Scripts.Network
             };
 
             room.Listen("players/:id", GetComponent<ListenerPlayers>().OnChange);
-            room.Listen("scene/:id", OnSceneChange);
 
             //room.OnMessage += OnData;
-
             while (true)
             {
                 client.Recv();
 
                 yield return 0;
             }
-        }
-        private void OnSceneChange(DataChange obj)
-        {
-            var jsonString = JsonConvert.SerializeObject(obj);
-            var jsonObj = JToken.Parse(jsonString);
-            Debug.Log(jsonString);
-            Debug.Log(jsonObj);
         }
 
         void OnRoomJoined(object sender, EventArgs e)
